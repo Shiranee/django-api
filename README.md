@@ -1,2 +1,2 @@
 # django-api
-Estudying django framework
+Studying django framework
