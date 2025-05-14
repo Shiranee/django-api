@@ -1,7 +1,6 @@
 # tests codes for "indentation and lint" errors
 docker compose run --rm app sh -c "python manage.py flake8"
 
-docker compose run --rm app sh -c "python manage.py startapp core"
 # run tests
 docker compose run --rm app sh -c "python manage.py test"
 docker compose run --rm app sh -c "python manage.py wait_for_db"
@@ -17,4 +16,11 @@ docker volume rm django-api_dev-db-data
 docker compose run --rm app sh -c "python manage.py createsuperuser"
 
 # creates a new app
+docker compose run --rm app sh -c "python manage.py startapp core"
 docker compose run --rm app sh -c "python manage.py startapp user"
+
+# consults a database data via django
+docker compose run --rm app sh -c "python manage.py dumpdata core.Recipe --indent 2"
+
+# consults a database data via django postgre image
+docker compose exec db psql -U devuser -d devdb -c "SELECT * FROM core_recipe;"
